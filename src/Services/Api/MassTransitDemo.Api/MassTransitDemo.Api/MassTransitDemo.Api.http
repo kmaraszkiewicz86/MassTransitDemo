@@ -1,6 +1,17 @@
-@MassTransitDemo.Api_HostAddress = http://localhost:5273
+@Host = http://localhost:5273
 
-GET {{MassTransitDemo.Api_HostAddress}}/weatherforecast/
+POST {{Host}}/upload-file/
+{
+	"FileId": "85e44ef7-2f4f-4b0f-85d7-885aa531d3b3", 
+	FileName: "test.json", 
+	Body: "{
+    "_id": "67f96bc6118215db033a6685",
+    "index": 0,
+    "guid": "81f5f993-971e-4107-b904-28b3669600ef",
+    "isActive": true,
+    "balance": "$1,622.24"
+  }"
+}
 Accept: application/json
 
 ###

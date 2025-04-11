@@ -19,15 +19,15 @@ namespace MassTransitDemo.Handlers
                 assembly = type.Assembly;
 
             var types = assembly.GetTypes()
-                .Where(t => t is { IsClass: true, IsAbstract: false }
-                            && t.GetInterfaces().Contains(type))
+                .Where(t => t.IsClass && !t.IsAbstract && t.GetInterfaces()
+                    .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == type))
                 .ToList();
 
             foreach (var implementationType in types)
             {
                 var interfaceType = implementationType.GetInterfaces().First(i => i != type);
 
-                services.AddScoped(interfaceType, implementationType);
+                services.AddSingleton(interfaceType, implementationType);
             }
 
             return services;
