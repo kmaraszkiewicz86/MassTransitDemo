@@ -1,3 +1,8 @@
+using Carter;
+using MassTransit;
+using MassTransitDemo.Api.StateMachine;
+using MassTransitDemo.Handlers;
+
 namespace MassTransitDemo.Api
 {
     public class Program
@@ -8,33 +13,27 @@ namespace MassTransitDemo.Api
 
             // Add services to the container.
             builder.Services.AddAuthorization();
+            builder.Services.AddHandlerServices(typeof(Program).Assembly);
+
+            builder.Services.AddMassTransit(cfg =>
+            {
+                cfg.SetKebabCaseEndpointNameFormatter();
+                cfg.AddSagaStateMachine<FileStateMachine, FileState>()
+                    .InMemoryRepository();
+
+                cfg.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host("rabbitmq://localhost");
+                    cfg.ConfigureEndpoints(context);
+                });
+            });
+
+            builder.Services.AddCarter();
 
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-
-            app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-
-            var summaries = new[]
-            {
-                "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-            };
-
-            app.MapGet("/weatherforecast", (HttpContext httpContext) =>
-            {
-                var forecast = Enumerable.Range(1, 5).Select(index =>
-                    new WeatherForecast
-                    {
-                        Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                        TemperatureC = Random.Shared.Next(-20, 55),
-                        Summary = summaries[Random.Shared.Next(summaries.Length)]
-                    })
-                    .ToArray();
-                return forecast;
-            });
+            app.MapCarter();
 
             app.Run();
         }
