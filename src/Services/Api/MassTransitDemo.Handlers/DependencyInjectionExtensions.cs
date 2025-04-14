@@ -7,8 +7,6 @@ namespace MassTransitDemo.Handlers
     {
         public static void AddHandlerServices(this IServiceCollection services, Assembly assembly)
         {
-            services.AddSingleton<ICommandDispatcher, CommandDispatcher>();
-            services.AddSingleton<IQueryDispatcher, QueryDispatcher>();
             services.AddClassesToDependencyInjection(typeof(ICommandHandler<,>), assembly);
             services.AddClassesToDependencyInjection(typeof(IQueryHandler<,>), assembly);
         }

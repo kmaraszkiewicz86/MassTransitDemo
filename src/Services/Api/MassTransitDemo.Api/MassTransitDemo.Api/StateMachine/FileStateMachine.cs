@@ -22,7 +22,7 @@ namespace MassTransitDemo.Api.StateMachine
                 When(FileUploading)
                     .Then(async context =>
                     {
-                        await commandHandler.Handle(new UploadFileToBlobStorageCommand(context.Message.FileId, context.Message.FileName, context.Message.Body), CancellationToken.None);
+                        await commandHandler.Handle(new UploadFileToBlobStorageCommand(context.Message.FileName, context.Message.Body), CancellationToken.None);
                         Console.WriteLine($"File {context.Message.FileId} to uploading");
                     })
                     .TransitionTo(Uploading));
