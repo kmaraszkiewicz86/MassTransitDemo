@@ -1,4 +1,5 @@
 ﻿using Carter;
+using FluentResults;
 using MassTransit;
 
 namespace MassTransitDemo.Api.Features.UploadFileToBlobStorage
@@ -10,7 +11,7 @@ namespace MassTransitDemo.Api.Features.UploadFileToBlobStorage
             app.MapPost("/upload-file", async (IPublishEndpoint publishEndpoint, UploadFileToBlobStorageCommand command) =>
             {
                 await publishEndpoint.Publish(command);
-                return Results.Accepted();
+                return Result.Ok();
             });
         }
     }

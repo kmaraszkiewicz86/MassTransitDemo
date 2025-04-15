@@ -1,6 +1,5 @@
 ﻿using Carter;
 using FluentResults;
-using MassTransitDemo.Api.Models.Responses;
 using MassTransitDemo.Handlers;
 
 namespace MassTransitDemo.Api.Features.GetFilesFromAzure

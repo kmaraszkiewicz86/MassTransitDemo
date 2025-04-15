@@ -1,3 +1,3 @@
-export class UploadFileToBloStorageRequest {
-    body!: string
+export interface UploadFileToBloStorageRequest {
+    body: string
 }

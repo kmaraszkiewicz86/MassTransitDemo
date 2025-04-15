@@ -1,3 +1,3 @@
-export class FileBody {
-    
+export interface FileBody {
+    body: string
 }
