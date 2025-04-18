@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { FileBody } from '../models/file-body';
-import { Result, ResultWithValue } from '../models/result';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { FileFromAzureResponse } from '../models/file-from-azure-response';
+import { Result, ResultWithValue, FileBody, FileFromAzureResponse } from '../models/mass-transit';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +23,7 @@ export class MassTransitHttpClientService {
     )
   }
 
-  getFile(): Observable<ResultWithValue<FileFromAzureResponse>> {
-    return this.http.get<ResultWithValue<FileFromAzureResponse>>(this.getFileApiUrl)
+  getFiles(): Observable<ResultWithValue<FileFromAzureResponse[]>> {
+    return this.http.get<ResultWithValue<FileFromAzureResponse[]>>(this.getFileApiUrl)
   }
 }
