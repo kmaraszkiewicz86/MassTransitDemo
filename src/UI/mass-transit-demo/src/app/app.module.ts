@@ -9,10 +9,14 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { MassTransitEffects } from './state/mass-transit/mass-transit.effects';
 import { fileReducer as filmassTransitReducer } from './state/mass-transit/mass-transit.reducer';
+import { FilesComponent } from './components/files/files.component';
+import { GenerateFileComponent } from './components/generate-file/generate-file.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FilesComponent,
+    GenerateFileComponent
   ],
   imports: [
     BrowserModule,
